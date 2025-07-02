@@ -64,10 +64,11 @@ class Router
 
     /**
      * Dispatch the route create the controller object and run action method
-     * 
+     *
      * @param string $url the route URL
-     * 
+     *
      * @return void
+     * @throws \Exception
      */
     public function dispatch(string $url): void
     {

@@ -2,11 +2,19 @@
 
 namespace App\Controllers;
 
-class HomeController
+use Core\Controller;
+use Core\View;
+
+class HomeController extends Controller
 {
+    /**
+     * @throws \Exception
+     */
     public function indexAction(): void
     {
-        echo 'Home controller';
+        View::render('home/index.php', [
+            'name' => 'Nam'
+        ]);
     }
 
     public function abcdAction(): void

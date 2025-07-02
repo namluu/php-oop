@@ -2,20 +2,20 @@
 
 namespace App\Controllers;
 
-//use Core\View;
-//use App\Models\PostModel;
+use Core\Controller;
+use Core\View;
+use App\Models\PostModel;
 
-class PostController
+class PostController extends Controller
 {
     public function indexAction(): void
     {
-        echo 'hello from the index action in Posts controller';
+        $postModel = new PostModel();
+        $posts = $postModel->getAll();
 
-//        $posts = PostModel::getAll();
-//
-//        View::render('Post/index.php', [
-//            'posts' => $posts
-//        ]);
+        View::render('post/index.php', [
+            'posts' => $posts
+        ]);
     }
 
     public function createAction()
