@@ -8,4 +8,51 @@ abstract class Controller
         protected array $routeParams = []
     ) {
     }
+
+    /**
+     * Check form post method
+     *
+     * @return bool
+     */
+    protected function isPostSubmitted(): bool
+    {
+        return $_SERVER['REQUEST_METHOD'] === 'POST';
+    }
+
+    /**
+     * Sanitize and validate input
+     *
+     * @return array
+     */
+    protected function getSanitizedData(): array
+    {
+        return filter_input_array(INPUT_POST, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    }
+
+    /**
+     * @param string $message
+     * @param int $code
+     * @return void
+     */
+    protected function responseError(string $message, int $code = 400): void
+    {
+        http_response_code($code);
+        echo json_encode(['error' => $message]);
+    }
+
+    /**
+     * @param string $message
+     * @param int $code
+     * @return void
+     */
+    protected function responseSuccess(string $message, int $code = 200): void
+    {
+        http_response_code($code);
+        echo json_encode(['success' => $message]);
+    }
+
+    protected function redirect(string $url, int $code = 302): void
+    {
+        header('Location: ' . $url, true, $code);
+    }
 }

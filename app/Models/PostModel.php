@@ -10,4 +10,19 @@ class PostModel extends \Core\Model
 
         return $this->getResults();
     }
+
+    public function create($data): bool
+    {
+        $this->query('INSERT INTO posts (title, content, link) VALUES (:title, :content, :link)');
+        $this->bind('title', $data['title']);
+        $this->bind('content', $data['content']);
+        $this->bind('link', $data['link']);
+        $this->execute();
+
+        if ($this->lastInsertId()) {
+            return true;
+        }
+
+        return false;
+    }
 }

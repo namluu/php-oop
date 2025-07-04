@@ -19,7 +19,7 @@ $router = new Core\Router();
 // Add the routes
 $router->add('', ['controller' => 'Home', 'action' => 'index']);
 $router->add('post', ['controller' => 'Post', 'action' => 'index']);
-$router->add('post/new', ['controller' => 'Post', 'action' => 'new']);
+$router->add('post/create', ['controller' => 'Post', 'action' => 'create']);
 $router->add('{controller}');
 $router->add('{controller}/{action}');
 $router->add('{controller}/{id:\d+}/{action}');

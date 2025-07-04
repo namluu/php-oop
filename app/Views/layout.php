@@ -12,7 +12,8 @@
         <div class="container d-flex flex-wrap">
             <ul class="nav me-auto">
                 <li class="nav-item"><a href="<?= ROOT_URL ?>" class="nav-link link-body-emphasis px-2 active" aria-current="page">Home</a></li>
-                <li class="nav-item"><a href="<?= ROOT_URL ?>post/index" class="nav-link link-body-emphasis px-2">Posts</a></li>
+                <li class="nav-item"><a href="<?= ROOT_URL ?>post" class="nav-link link-body-emphasis px-2">Posts</a></li>
+                <li class="nav-item"><a href="<?= ROOT_URL ?>post/create" class="nav-link link-body-emphasis px-2">Create post</a></li>
             </ul>
             <ul class="nav">
                 <li class="nav-item"><a href="#" class="nav-link link-body-emphasis px-2">Login</a></li>
