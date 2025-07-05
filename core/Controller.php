@@ -54,5 +54,6 @@ abstract class Controller
     protected function redirect(string $url, int $code = 302): void
     {
         header('Location: ' . $url, true, $code);
+        exit();
     }
 }

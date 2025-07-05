@@ -32,8 +32,7 @@ class PostController extends Controller
             }
 
             $postModel = new PostModel();
-            $result = $postModel->create($data);
-            if ($result) {
+            if ($postModel->create($data)) {
                 //$this->responseSuccess('Post created successfully');
                 $this->redirect(ROOT_URL . 'post');
             } else {
@@ -41,6 +40,8 @@ class PostController extends Controller
                 $this->redirect(ROOT_URL . 'post/create');
             }
         }
+
+        $this->redirect(ROOT_URL . 'post/create');
     }
 
     /**

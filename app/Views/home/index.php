@@ -12,12 +12,6 @@
             As you scroll, this navbar remains in its original position and moves with the rest of the page.</p>
         <a class="btn btn-lg btn-primary" href="/docs/5.3/components/navbar" role="button">View navbar docs »</a>
     </div>
-    <div class="bg-body-tertiary p-5 rounded my-3">
-        <h1>Navbar example</h1>
-        <p class="lead">This example is a quick exercise to illustrate how the top-aligned navbar works.
-            As you scroll, this navbar remains in its original position and moves with the rest of the page.</p>
-        <a class="btn btn-lg btn-primary" href="/docs/5.3/components/navbar" role="button">View navbar docs »</a>
-    </div>
     <div class="my-3 p-3 bg-body rounded shadow-sm">
         <h6 class="border-bottom pb-2 mb-0">Recent updates</h6>
         <div class="d-flex text-body-secondary pt-3">

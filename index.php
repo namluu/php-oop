@@ -1,8 +1,6 @@
 <?php
 require('config.php');
-/**
- * Autoloader
- */
+/** Autoloader */
 spl_autoload_register(function ($class) {
     $root = __DIR__;
     $file = $root . '/' . str_replace('\\','/', lcfirst($class)) . '.php';
@@ -11,12 +9,12 @@ spl_autoload_register(function ($class) {
     }
 });
 
-/**
- * Routing
- */
-$router = new Core\Router();
+/** Error and Exception handling */
+error_reporting(E_ALL);
+set_exception_handler('Core\Error::exceptionHandler');
 
-// Add the routes
+/** Routing */
+$router = new Core\Router();
 $router->add('', ['controller' => 'Home', 'action' => 'index']);
 $router->add('post', ['controller' => 'Post', 'action' => 'index']);
 $router->add('post/create', ['controller' => 'Post', 'action' => 'create']);
@@ -29,8 +27,5 @@ $router->add($adminCustomLink . '/{controller}', ['namespace' => 'Admin']);
 $router->add($adminCustomLink . '/{controller}/{action}', ['namespace' => 'Admin']);
 $router->add($adminCustomLink . '/{controller}/{id:\d+}/{action}', ['namespace' => 'Admin']);
 
-// Start router
 $uri = trim($_SERVER['REQUEST_URI'], '/');
 $router->dispatch($uri);
-
-//phpinfo();
