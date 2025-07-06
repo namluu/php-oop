@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use Core\Controller;
 use Core\View;
+use App\Models\PostModel;
 
 class HomeController extends Controller
 {
@@ -12,13 +13,11 @@ class HomeController extends Controller
      */
     public function indexAction(): void
     {
-        View::render('home/index.php', [
-            'name' => 'Nam'
-        ]);
-    }
+        $postModel = new PostModel();
+        $posts = $postModel->getAll();
 
-    public function abcdAction(): void
-    {
-        echo 'Home controller - abcdAction';
+        View::render('home/index.php', [
+            'posts' => $posts
+        ]);
     }
 }

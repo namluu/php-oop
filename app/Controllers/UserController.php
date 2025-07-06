@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Models\UserModel;
 use Core\Controller;
 use Core\View;
+use Core\Message;
 
 class UserController extends Controller
 {
@@ -25,24 +26,31 @@ class UserController extends Controller
 
     public function accountAction(): void
     {
+        if (!$this->getUserSession()) {
+            $this->redirect(ROOT_URL . 'user/login');
+        }
+
         $user = $this->getUserSession();
         View::render('user/account.php', [
             'user' => $user
         ]);
     }
 
-    public function storeAction(): void
+    public function registerSubmitAction(): void
     {
         if ($this->isPostSubmitted()) {
             $data = $this->getSanitizedData();
             if (!$this->validateFormData($data)) {
-                $this->responseError('Invalid input');
+                Message::setErrorMessage('Invalid input');
+                $this->redirect(ROOT_URL . 'user/register');
             }
 
             $userModel = new UserModel();
             if ($userModel->create($data)) {
+                Message::setSuccessMessage('User created');
                 $this->redirect(ROOT_URL . 'user/login');
             } else {
+                Message::setErrorMessage('User could not be created');
                 $this->redirect(ROOT_URL . 'user/register');
             }
         }
@@ -55,19 +63,22 @@ class UserController extends Controller
         return !(!$data['email'] || !$data['password']);
     }
 
-    public function authAction(): void
+    public function loginSubmitAction(): void
     {
         if ($this->isPostSubmitted()) {
             $data = $this->getSanitizedData();
             if (!$this->validateFormData($data)) {
-                $this->responseError('Invalid input');
+                Message::setErrorMessage('Invalid input');
+                $this->redirect(ROOT_URL . 'user/login');
             }
 
             $userModel = new UserModel();
             if ($user = $userModel->login($data)) {
                 $this->createUserSession($user);
+                Message::setSuccessMessage('User logged in');
                 $this->redirect(ROOT_URL . 'user/account');
             } else {
+                Message::setErrorMessage('User could not be logged in');
                 $this->redirect(ROOT_URL . 'user/login');
             }
         }
@@ -78,6 +89,7 @@ class UserController extends Controller
     public function logoutAction(): void
     {
         $this->removeUserSession();
+        Message::setSuccessMessage('User logged out');
         $this->redirect(ROOT_URL);
     }
 }

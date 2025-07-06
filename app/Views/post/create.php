@@ -4,7 +4,9 @@
 <main class="container">
     <div class="bg-body-tertiary p-5 rounded my-3">
         <h1>Posts</h1>
-        <p class="lead">hello from the index action in Post controller.</p>
+        <?php if (isset($currentUser)): ?>
+        <p class="lead">Let create some posts</p>
+        <?php endif; ?>
     </div>
     <form method="post" action="<?= ROOT_URL ?>post/store">
         <div class="mb-3">

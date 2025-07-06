@@ -5,6 +5,7 @@ namespace App\Controllers;
 use Core\Controller;
 use Core\View;
 use App\Models\PostModel;
+use Core\Message;
 
 class PostController extends Controller
 {
@@ -20,23 +21,34 @@ class PostController extends Controller
 
     public function createAction()
     {
+        if (!$this->getUserSession()) {
+            $this->redirect(ROOT_URL . 'user/login');
+        }
+
         View::render('post/create.php');
     }
 
     public function storeAction()
     {
+        if (!$this->getUserSession()) {
+            $this->redirect(ROOT_URL . 'user/login');
+        }
+
         if ($this->isPostSubmitted()) {
             $data = $this->getSanitizedData();
             if (!$this->validateFormData($data)) {
-                $this->responseError('Invalid input');
+                Message::setErrorMessage('Invalid input');
+                $this->redirect(ROOT_URL . 'post/create');
             }
 
             $postModel = new PostModel();
+            $user = $this->getUserSession();
+            $data['user_id'] = $user->id;
             if ($postModel->create($data)) {
-                //$this->responseSuccess('Post created successfully');
+                Message::setSuccessMessage('Post created');
                 $this->redirect(ROOT_URL . 'post');
             } else {
-                //$this->responseError('Failed to create a new post', 500);
+                Message::setErrorMessage('Post could not be created');
                 $this->redirect(ROOT_URL . 'post/create');
             }
         }

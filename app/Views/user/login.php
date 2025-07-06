@@ -5,7 +5,7 @@
     <div class="bg-body-tertiary p-5 rounded my-3">
         <h1>Login User</h1>
     </div>
-    <form method="post" action="<?= ROOT_URL ?>user/auth">
+    <form method="post" action="<?= ROOT_URL ?>user/loginSubmit">
         <div class="mb-3 col-4">
             <label for="email" class="form-label">Email</label>
             <input type="email" class="form-control" id="email" name="email">

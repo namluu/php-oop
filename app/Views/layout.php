@@ -26,6 +26,7 @@
             </ul>
         </div>
     </nav>
+    <?php require 'app/Views/messages.php'; ?>
     <?= $content ?>
     <script src="<?= ROOT_URL ?>assets/js/bootstrap.bundle.min.js"></script>
 </body>

@@ -27,7 +27,7 @@ abstract class Controller
      */
     protected function getSanitizedData(): array
     {
-        return filter_input_array(INPUT_POST, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        return filter_input_array(INPUT_POST, FILTER_UNSAFE_RAW);
     }
 
     /**

@@ -6,7 +6,7 @@
         <h1>Register User</h1>
         <p class="lead">Register User to create a new post.</p>
     </div>
-    <form method="post" action="<?= ROOT_URL ?>user/store">
+    <form method="post" action="<?= ROOT_URL ?>user/registerSubmit">
         <div class="mb-3">
             <label for="name" class="form-label">Name</label>
             <input type="text" class="form-control" id="name" name="name">
