@@ -23,6 +23,14 @@ class UserController extends Controller
         View::render('user/login.php');
     }
 
+    public function accountAction(): void
+    {
+        $user = $this->getUserSession();
+        View::render('user/account.php', [
+            'user' => $user
+        ]);
+    }
+
     public function storeAction(): void
     {
         if ($this->isPostSubmitted()) {
@@ -44,11 +52,32 @@ class UserController extends Controller
 
     private function validateFormData($data): bool
     {
-        return !(!$data['name'] || !$data['email'] || !$data['password']);
+        return !(!$data['email'] || !$data['password']);
     }
 
     public function authAction(): void
     {
-        echo 'User controller - authAction';
+        if ($this->isPostSubmitted()) {
+            $data = $this->getSanitizedData();
+            if (!$this->validateFormData($data)) {
+                $this->responseError('Invalid input');
+            }
+
+            $userModel = new UserModel();
+            if ($user = $userModel->login($data)) {
+                $this->createUserSession($user);
+                $this->redirect(ROOT_URL . 'user/account');
+            } else {
+                $this->redirect(ROOT_URL . 'user/login');
+            }
+        }
+
+        $this->redirect(ROOT_URL . 'user/login');
+    }
+
+    public function logoutAction(): void
+    {
+        $this->removeUserSession();
+        $this->redirect(ROOT_URL);
     }
 }

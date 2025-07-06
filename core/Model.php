@@ -6,7 +6,7 @@ abstract class Model
 {
     protected $db;
 
-    protected $stmt;
+    protected \PDOStatement $stmt;
 
     public function __construct()
     {
@@ -44,13 +44,19 @@ abstract class Model
     }
 
     protected function getResults(){
-        $this->stmt->execute();
+        $this->execute();
 
-        return $this->stmt->fetchAll(\PDO::FETCH_ASSOC);
+        return $this->stmt->fetchAll(\PDO::FETCH_OBJ);
     }
 
     protected function lastInsertId(): false|string
     {
         return $this->db->lastInsertId();
+    }
+
+    protected function getSingleRow(){
+        $this->execute();
+
+        return $this->stmt->fetch(\PDO::FETCH_OBJ);
     }
 }

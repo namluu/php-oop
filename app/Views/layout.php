@@ -16,8 +16,13 @@
                 <li class="nav-item"><a href="<?= ROOT_URL ?>post/create" class="nav-link link-body-emphasis px-2">Create post</a></li>
             </ul>
             <ul class="nav">
+                <?php if (isset($currentUser)): ?>
+                    <li class="nav-item"><a href="<?= ROOT_URL ?>user/account" class="nav-link link-body-emphasis px-2">
+                            Hello: <?= $currentUser->name ?></a></li>
+                <?php else: ?>
                 <li class="nav-item"><a href="<?= ROOT_URL ?>user/login" class="nav-link link-body-emphasis px-2">Login</a></li>
                 <li class="nav-item"><a href="<?= ROOT_URL ?>user/register" class="nav-link link-body-emphasis px-2">Register</a></li>
+                <?php endif; ?>
             </ul>
         </div>
     </nav>

@@ -18,4 +18,16 @@ class UserModel extends \Core\Model
 
         return false;
     }
+
+    /**
+     * @param $data
+     * @return mixed row user data or false
+     */
+    public function login($data): mixed
+    {
+        $this->query('SELECT id, name, email FROM users WHERE email = :email AND password = :password AND is_active = 1');
+        $this->bind('email', $data['email']);
+        $this->bind('password', md5($data['password']));
+        return $this->getSingleRow();
+    }
 }

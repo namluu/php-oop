@@ -7,6 +7,7 @@ abstract class Controller
     public function __construct(
         protected array $routeParams = []
     ) {
+        session_start();
     }
 
     /**
@@ -55,5 +56,20 @@ abstract class Controller
     {
         header('Location: ' . $url, true, $code);
         exit();
+    }
+
+    protected function createUserSession(mixed $user): void
+    {
+        $_SESSION['user_data'] = $user;
+    }
+
+    protected function getUserSession(): mixed
+    {
+        return $_SESSION['user_data'] ?? null;
+    }
+
+    protected function removeUserSession(): void
+    {
+        unset($_SESSION["user_data"]);
     }
 }
